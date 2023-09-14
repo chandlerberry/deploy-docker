@@ -1,0 +1,30 @@
+---
+- name: Install yum-utils
+  ansible.builtin.yum:
+    name: yum-utils
+    state: present
+    update_cache: true
+
+- name: Install Docker packages
+  ansible.builtin.yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    enablerepo: https://download.docker.com/linux/centos/docker-ce.repo
+    state: present
+    update_cache: true
+
+- name: Enable Docker to start on boot
+  ansible.builtin.systemd:
+    name: docker.service
+    enabled: true
+    state: started
+
+- name: Enable containerd to start on boot
+  ansible.builtin.systemd:
+    name: containerd.service
+    enabled: true
+    state: started

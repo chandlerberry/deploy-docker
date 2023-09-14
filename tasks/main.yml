@@ -1,0 +1,13 @@
+---
+# TODO: https://docs.docker.com/engine/install/raspberry-pi-os/
+- name: Installing Docker for Ubuntu...
+  when: ansible_facts['distribution'] == "Ubuntu"
+  ansible.builtin.import_tasks: ubuntu.yml
+
+- name: Installing Docker for Fedora...
+  when: ansible_facts['distribution'] == "Fedora"
+  ansible.builtin.import_tasks: fedora.yml
+
+- name: Installing Docker for CentOS...
+  when: ansible_facts['distribution'] == "CentOS"
+  ansible.builtin.import_tasks: centos.yml
