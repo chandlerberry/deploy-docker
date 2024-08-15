@@ -5,6 +5,12 @@
     state: present
     update_cache: true
 
+- name: Add docker-ce.repo to /etc/yum.repos.d
+  ansible.builtin.copy:
+    remote_src: true
+    src: https://download.docker.com/linux/fedora/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
 - name: Install Docker packages
   ansible.builtin.dnf:
     name:
@@ -13,7 +19,6 @@
       - containerd.io
       - docker-buildx-plugin
       - docker-compose-plugin
-    enablerepo: https://download.docker.com/linux/fedora/docker-ce.repo
     state: present
     update_cache: true
 
